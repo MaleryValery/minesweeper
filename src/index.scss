@@ -1,0 +1,89 @@
+@import './styles/styles.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  margin: 0 auto;
+  user-select: none;
+  font-family: 'Rubik', sans-serif;
+  background-color: lighten($body-bg-light, 10%);
+  color: darken($body-text-light, 20%);
+  transition: all 0.5s ease-in-out;
+  @media (max-width: $widht-medium) {
+    font-size: 14px;
+  }
+}
+
+:root[theme='dark'] {
+  margin: 0 auto;
+  user-select: none;
+  font-family: 'Rubik', sans-serif;
+  background-color: darken($body-bg-dark, 30%);
+  color: $body-text-dark;
+  transition: all 0.5s ease-in-out;
+  @media (max-width: $widht-medium) {
+    font-size: 14px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0vh;
+  left: 0vh;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(19, 43, 35, 0.58);
+  z-index: 2;
+}
+
+.modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 150px;
+  background-color: $body-bg-light;
+  border-radius: 10px;
+  color: #222;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  img {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100px;
+  }
+}
+.hide {
+  display: none;
+}
+.no-scroll {
+  overflow-y: hidden;
+}
+
+.active {
+  transform: scale(0.85);
+  border-radius: 2px;
+}
+
+.theme {
+  cursor: pointer;
+  transition: all 0.3s;
+  img {
+    width: 45px;
+    @media (max-width: $widht-medium) {
+      width: 40px;
+    }
+    @media (max-width: $widht-small) {
+      width: 35px;
+    }
+  }
+}
