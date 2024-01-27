@@ -100,6 +100,14 @@
     background-image: url(../../assets/restart-3.png);
   }
 
+  &.lose {
+    background-image: url(../../assets/game-lose2.png);
+  }
+
+  &.win {
+    background-image: url(../../assets/game-win2.png);
+  }
+
   @media (max-width: $widht-medium) {
     width: 45px;
   }

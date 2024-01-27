@@ -13,16 +13,20 @@ type GameSettings = {
   onChangeBombs: (num: number) => void;
   onReset: () => void;
   isLeftClick: boolean;
+  isOver: boolean;
+  isWin: boolean;
   timer: number;
   flag: number;
   moves: number;
 };
 
-function GameSettings({ moves, timer, flag, isLeftClick, onReset, onChangeFieldSize, onChangeBombs }: GameSettings) {
+function GameSettings({ moves, timer, flag, isLeftClick,isOver,isWin, onReset, onChangeFieldSize, onChangeBombs }: GameSettings) {
   const [isSound, setIsSound] = useState(false);
   const [value, setInputValue] = useState(BOMBS_QTY.min);
 
   const handlerChangeBombs = (num: number) => {
+    const bombValue = num < BOMBS_QTY.min ? BOMBS_QTY.min : num;
+    setInputValue(bombValue);
     onChangeBombs(num);
   };
 
@@ -70,7 +74,7 @@ function GameSettings({ moves, timer, flag, isLeftClick, onReset, onChangeFieldS
           {isSound ? 'ON' : 'OFF'}
         </div>
         <div className="timer setiing">{timer}</div>
-        <div className={`game-icon ${isLeftClick ? 'mousedown' : ''}`} onClick={onReset} />
+        <div className={`game-icon ${isLeftClick ? 'mousedown' : ''} ${isOver ? 'lose' : ''}${isWin ? 'win' : ''}`} onClick={onReset} />
         <div className="flags setiing">{flag}</div>
         <div className="moves setiing">{moves}</div>
       </div>
