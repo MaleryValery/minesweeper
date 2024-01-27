@@ -1,0 +1,73 @@
+@import '../../styles/styles.scss';
+
+.minefield {
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  background-color: #ddd;
+  border-radius: 2px;
+}
+
+.dark {
+  border: 1px solid darken($body-bg-dark, 8%);
+  background-color: $body-bg-dark;
+}
+
+.small-field {
+  width: 240px;
+  height: 240px;
+}
+
+.middle-field {
+  width: 360px;
+  height: 360px;
+}
+
+.large-field {
+  width: 600px;
+  height: 600px;
+}
+@media (max-width: 700px) {
+  .small-field {
+    width: 220px;
+    height: 220px;
+  }
+  .middle-field {
+    width: 330px;
+    height: 330px;
+  }
+  .large-field {
+    width: 550px;
+    height: 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  .small-field {
+    width: 200px;
+    height: 200px;
+  }
+  .middle-field {
+    width: 300px;
+    height: 300px;
+  }
+  .large-field {
+    width: 500px;
+    height: 500px;
+  }
+}
+@media (max-width: 550px) {
+  .small-field {
+    width: 180px;
+    height: 180px;
+  }
+
+  .middle-field {
+    width: 270px;
+    height: 270px;
+  }
+  .large-field {
+    width: 450px;
+    height: 450px;
+  }
+}

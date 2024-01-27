@@ -1,0 +1,69 @@
+@import '../../styles/styles.scss';
+
+.cell {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid darken(#ddd, 6%);
+  background-color: #ddd;
+  color: #343;
+
+  &:active {
+    background-color: lighten(#ddd, 2%);
+  }
+  &.open {
+    background-color: lighten(#90ee90, 5%);
+  }
+  &.value-0 {
+    background-color: #a6f1a6;
+  }
+  &.value-1 {
+    background-color: #90ee90;
+  }
+  &.value-2 {
+    background-color: #c4e97d;
+  }
+  &.value-3 {
+    background-color: #ffda84;
+  }
+  &.value-4 {
+    background-color: #ffc75f;
+  }
+  &.value-5 {
+    background-color: #ff9671;
+  }
+  &.value-6 {
+    background-color: #ff847d;
+  }
+  &.value-7 {
+    background-color: #ff6f91;
+  }
+  &.value-8 {
+    background-color: #d65db1;
+  }
+  @media (max-width: $widht-large) {
+    width: 22px;
+    height: 22px;
+  }
+  @media (max-width: $widht-medium) {
+    width: 20px;
+    height: 20px;
+  }
+  @media (max-width: $widht-small) {
+    width: 18px;
+    height: 18px;
+  }
+  &.boom {
+    background-color: lightpink;
+    border: lightpink;
+  }
+}
+
+.field-img {
+  width: 17px;
+  height: 17px;
+}
