@@ -1,9 +1,9 @@
 // import { MouseEventHandler, useState } from "react";
 import { CellState, CellValue } from '../../utils/types';
+import { MouseEvent } from 'react';
 import bomb from '../../assets/bomb.png';
 import flag from '../../assets/red-flag.png';
 import './Cell.scss';
-import { MouseEvent } from 'react';
 
 type CellProps = {
   row: number;
@@ -11,13 +11,13 @@ type CellProps = {
   state: CellState;
   value: CellValue;
   moves: number;
+  bombed: boolean;
   onChangeMoves: () => void;
-  onCellClick: () => void;
-  onGameLive: () => void;
-  onContextClick: (e: MouseEvent<HTMLDivElement, MouseEvent>, row: number, col: number) => void;
+  onCellClick(row: number, col: number): () => void;
+  onContextClick(row: number, col: number): (event: MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
-function Cell({ moves, onGameLive, onChangeMoves, onCellClick, row, col, state, value, onContextClick }: CellProps) {
+function Cell({ bombed, onCellClick, row, col, state, value, onContextClick }: CellProps) {
   const renderCellContent = () => {
     if (state === CellState.visible) {
       if (value === CellValue.bomb) {
@@ -31,22 +31,13 @@ function Cell({ moves, onGameLive, onChangeMoves, onCellClick, row, col, state, 
     }
   };
 
-  const handlerCellClick = () => {
-    moves < 1 ? onGameLive() : null;
-    onChangeMoves();
-    onCellClick();
-  };
-
   return (
     <div
-      onClick={handlerCellClick}
-      onContextMenu={(e) => onContextClick(e, row, col)}
-      // row={row}
-      // col={col}
-      // state={state}
-      // value={value}
-      className={`cell ${state === CellState.visible ? `open value-${value}` : ``}`}
-      // onContextMenu={handlerSetFlag}
+      onClick={onCellClick(row, col)}
+      onContextMenu={onContextClick(row, col)}
+      className={`cell 
+      ${state === CellState.visible ? `open value-${value}` : ``}
+      ${bombed === true ? `open boom` : ``}`}
     >
       {renderCellContent()}
     </div>
