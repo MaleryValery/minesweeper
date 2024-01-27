@@ -14,16 +14,11 @@ export enum CellValue {
 export enum CellState {
   hidden,
   visible,
-  flagged,
+  flagged
 }
 
 export type CellType = {
-  value: CellValue;
-  state: CellState;
-};
-
-export enum GameState {
-  fail,
-  live,
-  win,
+  value: CellValue,
+  state: CellState
+  bombed: boolean,
 }

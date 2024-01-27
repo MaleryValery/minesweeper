@@ -10,6 +10,7 @@ export const generateCells = (size: number, bombs = BOMBS_QTY.min): CellType[][]
       cells[row].push({
         value: CellValue.none,
         state: CellState.hidden,
+        bombed: false
       });
     }
   }
