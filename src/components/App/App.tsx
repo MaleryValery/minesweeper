@@ -5,7 +5,10 @@ import { BOMBS_QTY, SIZE_FIELD } from '../../utils/const';
 import GameSettings from '../GameSettings/GameSettings';
 import './App.scss';
 import { generateCells } from '../../utils/generateCells';
-import { CellType } from '../../utils/types';
+import { CellType, GameStatus } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setGameState } from '../../store/gameSlice';
+import ModalPopup from '../ModalPopup/ModalPopup';
 // import { GameState } from '../../utils/types';
 
 function App() {
@@ -19,6 +22,8 @@ function App() {
   const [isLive, setIsLive] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [isWin, setIsWin] = useState(false);
+  const { gameStatus } = useAppSelector((state) => state.game);
+  const dispatch = useAppDispatch();
 
   const handlerMouseDown = () => {
     setKeydown(true);
@@ -36,6 +41,7 @@ function App() {
     setIsLive(() => false);
     setIsOver(() => false);
     setCells(() => generateCells(newSize, bombs));
+    dispatch(setGameState(GameStatus.live));
   };
 
   const handlerChangeBombs = (qty: number) => {
@@ -46,6 +52,7 @@ function App() {
     setIsLive(() => false);
     setIsOver(() => false);
     setCells(() => generateCells(size, qty));
+    dispatch(setGameState(GameStatus.live));
   };
 
   const handleReset = () => {
@@ -56,6 +63,7 @@ function App() {
     setIsOver(() => false);
     setIsWin(() => false);
     setCells(generateCells(size, bombs));
+    dispatch(setGameState(GameStatus.live));
   };
 
   useEffect(() => {
@@ -71,6 +79,7 @@ function App() {
 
   return (
     <div className="wrapper">
+      {gameStatus !== GameStatus.live && <ModalPopup />}
       <Header />
       <GameSettings
         isOver={isOver}

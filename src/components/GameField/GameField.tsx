@@ -2,12 +2,14 @@ import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef } from 'react';
 import Cell from '../Cell/Cell';
 import { SIZE_FIELD } from '../../utils/const';
 import './GameField.scss';
-import { CellState, CellType, CellValue } from '../../utils/types';
+import { CellState, CellType, CellValue, GameStatus } from '../../utils/types';
 import { checkClickedCell } from '../../utils/checkClickedCell';
 import { showAllCells } from '../../utils/showAllCells';
 import { generateCells } from '../../utils/generateCells';
 import { checkIsWin } from '../../utils/checkIsWin';
 import { setFlagsOnBombs } from '../../utils/setFlagsOnBombs';
+import { useAppDispatch } from '../../store/hooks';
+import { setGameState } from '../../store/gameSlice';
 
 type GameFieldProps = {
   isLive: boolean;
@@ -48,6 +50,7 @@ function GameField({
   setCells,
 }: GameFieldProps) {
   const fieldRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const field = fieldRef.current;
@@ -124,6 +127,7 @@ function GameField({
       setCells(newCells);
       setIsLive(() => false);
       setIsOver(() => true);
+      dispatch(setGameState(GameStatus.lose))
     } else if (curCell.value === CellValue.none) {
       newCells = checkClickedCell(row, col, size, newCells);
       setCells(newCells);
@@ -135,7 +139,7 @@ function GameField({
     if (isWiner) {
       const updatedCels = setFlagsOnBombs(newCells);
       setCells(updatedCels);
-
+      dispatch(setGameState(GameStatus.win))
       setIsWin(() => isWiner);
       setIsLive(() => false);
     }

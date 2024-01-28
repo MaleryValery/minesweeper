@@ -1,0 +1,78 @@
+@import '../../styles/styles.scss';
+
+.overlay {
+  position: fixed;
+  top: 0vh;
+  left: 0vh;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(19, 43, 35, 0.58);
+  z-index: 2;
+}
+
+.modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: $body-bg-light;
+  border-radius: 10px;
+  color: #222;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  img {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100px;
+  }
+}
+.hide {
+  display: none;
+}
+.no-scroll {
+  overflow-y: hidden;
+}
+
+.active {
+  transform: scale(0.85);
+  border-radius: 2px;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: rotate(45deg);
+  font-size: 20px;
+}
+
+.save-win-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: $body-text-dark;
+  background-color: darken($body-bg-dark, 20%);
+}
+
+.save-win-btn:disabled{
+  color: $body-text-dark;
+  background-color: $body-bg-dark;
+}
+
+.input-win-name {
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+
+.label-win-name {
+  font-size: 12px;
+}
+.input-wrapper {
+  padding-top: 10px;
+}
