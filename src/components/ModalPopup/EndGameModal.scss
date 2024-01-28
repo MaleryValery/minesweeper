@@ -1,0 +1,35 @@
+@import '../../styles/styles.scss';
+
+.close-modal-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: rotate(45deg);
+  font-size: 20px;
+}
+
+.save-win-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: $body-text-dark;
+  background-color: darken($body-bg-dark, 20%);
+}
+
+.save-win-btn:disabled {
+  color: $body-text-dark;
+  background-color: $body-bg-dark;
+}
+
+.input-win-name {
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+
+.label-win-name {
+  font-size: 12px;
+}
+.input-wrapper {
+  padding-top: 10px;
+}

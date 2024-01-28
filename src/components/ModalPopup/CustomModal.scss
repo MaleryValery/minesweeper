@@ -1,0 +1,33 @@
+@import '../../styles/styles.scss';
+
+.overlay {
+  position: fixed;
+  top: 0vh;
+  left: 0vh;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(19, 43, 35, 0.58);
+  z-index: 2;
+}
+
+.modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: $body-bg-light;
+  border-radius: 10px;
+  color: #222;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  img {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100px;
+  }
+}
