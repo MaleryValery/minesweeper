@@ -8,8 +8,7 @@ import { generateCells } from '../../utils/generateCells';
 import { CellType, GameStatus } from '../../utils/types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setGameState } from '../../store/gameSlice';
-import ModalPopup from '../ModalPopup/ModalPopup';
-// import { GameState } from '../../utils/types';
+import ModalPopup from '../ModalPopup/EndGameModal';
 
 function App() {
   const [size, setSize] = useState(SIZE_FIELD.small);
@@ -33,37 +32,31 @@ function App() {
     setKeydown(false);
   };
 
-  const handlerChangeSize = (newSize: number) => {
-    setSize(newSize);
-    setTimer(() => 0);
-    setMoves(() => 0);
-    setFlag(() => 0);
-    setIsLive(() => false);
-    setIsOver(() => false);
-    setCells(() => generateCells(newSize, bombs));
-    dispatch(setGameState(GameStatus.live));
-  };
-
-  const handlerChangeBombs = (qty: number) => {
-    setBombs(qty);
-    setTimer(() => 0);
-    setMoves(() => 0);
-    setFlag(() => 0);
-    setIsLive(() => false);
-    setIsOver(() => false);
-    setCells(() => generateCells(size, qty));
-    dispatch(setGameState(GameStatus.live));
-  };
-
-  const handleReset = () => {
+  const baseReset = () => {
     setTimer(() => 0);
     setMoves(() => 0);
     setFlag(() => 0);
     setIsLive(() => false);
     setIsOver(() => false);
     setIsWin(() => false);
-    setCells(generateCells(size, bombs));
     dispatch(setGameState(GameStatus.live));
+  };
+
+  const handlerChangeSize = (newSize: number) => {
+    setSize(newSize);
+    baseReset();
+    setCells(() => generateCells(newSize, bombs));
+  };
+
+  const handlerChangeBombs = (qty: number) => {
+    setBombs(qty);
+    baseReset();
+    setCells(() => generateCells(size, qty));
+  };
+
+  const handleReset = () => {
+    baseReset();
+    setCells(generateCells(size, bombs));
   };
 
   useEffect(() => {
@@ -102,6 +95,7 @@ function App() {
         setIsOver={setIsOver}
         setIsWin={setIsWin}
         flag={flag}
+        timer={timer}
         bombs={bombs}
         setCells={setCells}
         onChangeMoves={() => setMoves((move) => move + 1)}

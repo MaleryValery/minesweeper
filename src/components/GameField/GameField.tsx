@@ -9,7 +9,7 @@ import { generateCells } from '../../utils/generateCells';
 import { checkIsWin } from '../../utils/checkIsWin';
 import { setFlagsOnBombs } from '../../utils/setFlagsOnBombs';
 import { useAppDispatch } from '../../store/hooks';
-import { setGameState } from '../../store/gameSlice';
+import { setGameState, setWinner } from '../../store/gameSlice';
 
 type GameFieldProps = {
   isLive: boolean;
@@ -17,6 +17,7 @@ type GameFieldProps = {
   isOver: boolean;
   cells: CellType[][];
   size: number;
+  timer: number;
   className?: string;
   moves: number;
   flag: number;
@@ -32,11 +33,10 @@ type GameFieldProps = {
 };
 
 function GameField({
-  // isLive,
   size,
   cells,
   moves,
-  // flag,
+  timer,
   bombs,
   isOver,
   isWin,
@@ -121,13 +121,13 @@ function GameField({
     if (curCell.state === CellState.flagged || curCell.state === CellState.visible) return;
 
     if (curCell.value === CellValue.bomb) {
+      dispatch(setGameState(GameStatus.lose));
       newCells[row][col].state = CellState.visible;
       newCells[row][col].bombed = true;
       newCells = showAllCells(newCells);
       setCells(newCells);
       setIsLive(() => false);
       setIsOver(() => true);
-      dispatch(setGameState(GameStatus.lose))
     } else if (curCell.value === CellValue.none) {
       newCells = checkClickedCell(row, col, size, newCells);
       setCells(newCells);
@@ -138,8 +138,9 @@ function GameField({
     const isWiner = checkIsWin(bombs, size, newCells);
     if (isWiner) {
       const updatedCels = setFlagsOnBombs(newCells);
+      dispatch(setGameState(GameStatus.win));
+      dispatch(setWinner({ timer, size, bombs, moves, name: '' }));
       setCells(updatedCels);
-      dispatch(setGameState(GameStatus.win))
       setIsWin(() => isWiner);
       setIsLive(() => false);
     }
