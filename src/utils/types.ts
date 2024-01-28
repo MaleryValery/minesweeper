@@ -14,11 +14,21 @@ export enum CellValue {
 export enum CellState {
   hidden,
   visible,
-  flagged
+  flagged,
 }
 
 export type CellType = {
-  value: CellValue,
-  state: CellState
-  bombed: boolean,
+  value: CellValue;
+  state: CellState;
+  bombed: boolean;
+};
+
+export enum GameStatus {
+  lose,
+  win,
+  live,
+}
+export enum GameTheme {
+  light,
+  dark,
 }
