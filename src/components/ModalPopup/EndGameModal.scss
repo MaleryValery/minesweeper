@@ -13,6 +13,7 @@
   border-radius: 5px;
   color: $body-text-dark;
   background-color: darken($body-bg-dark, 20%);
+  margin-top: 5px;
 }
 
 .save-win-btn:disabled {
@@ -23,7 +24,6 @@
 .input-win-name {
   border-radius: 5px;
   border: none;
-  margin-right: 10px;
   padding: 5px 10px;
 }
 
@@ -31,5 +31,7 @@
   font-size: 12px;
 }
 .input-wrapper {
+  display: flex;
+  flex-direction: column;
   padding-top: 10px;
 }

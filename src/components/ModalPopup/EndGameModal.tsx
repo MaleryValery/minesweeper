@@ -31,7 +31,6 @@ function ModalPopup() {
     } else {
       localStorage.setItem('allwinners', JSON.stringify([winerWithName]));
     }
-    console.log('GameStatus.live: ', GameStatus.live);
     dispatch(setGameState(GameStatus.live));
   };
 
