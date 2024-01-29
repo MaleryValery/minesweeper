@@ -1,6 +1,7 @@
 import ControllBtn from '../ControllBtn/ControllBtn';
 import easy from '../../assets/easy.png';
-import theme from '../../assets/dark2.png';
+import themeDark from '../../assets/dark2.png';
+import themeLigth from '../../assets/light.png';
 import inter from '../../assets/inter.png';
 import hard from '../../assets/hard.png';
 import bomb from '../../assets/hard2.png';
@@ -8,7 +9,8 @@ import { BOMBS_QTY, SIZE_FIELD } from '../../utils/const';
 import { ChangeEvent, useState } from 'react';
 import './GameSettings.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setAudio } from '../../store/gameSlice';
+import { setAudio, setTheme } from '../../store/gameSlice';
+import { GameTheme } from '../../utils/types';
 
 type GameSettings = {
   onChangeFieldSize: (num: number) => void;
@@ -35,7 +37,7 @@ function GameSettings({
 }: GameSettings) {
   const [value, setInputValue] = useState(BOMBS_QTY.min);
   const dispatch = useAppDispatch();
-  const { audio } = useAppSelector((state) => state.game);
+  const { audio, theme } = useAppSelector((state) => state.game);
 
   const handlerChangeBombs = (num: number) => {
     const bombValue = num < BOMBS_QTY.min ? BOMBS_QTY.min : num;
@@ -52,10 +54,19 @@ function GameSettings({
     dispatch(setAudio(!audio));
   };
 
+  const handlerChangeTheme = () => {
+    const newTheme = theme === GameTheme.dark ? GameTheme.light : GameTheme.dark;
+    dispatch(setTheme(newTheme));
+  };
+
   return (
     <>
       <div className="level-wrapper">
-        <ControllBtn className="theme" img={theme} onClick={() => {}} />
+        <ControllBtn
+          className="theme"
+          img={theme === GameTheme.dark ? themeLigth : themeDark}
+          onClick={handlerChangeTheme}
+        />
         <ControllBtn
           className="level-beginner btn"
           img={easy}

@@ -2,7 +2,16 @@
 
 .wrapper {
   margin: 0 auto;
+  height: 100vh;
+  user-select: none;
+  font-family: 'Rubik', sans-serif;
+  background-color: lighten($body-bg-light, 10%);
+  color: darken($body-text-light, 20%);
+  transition: all 0.5s ease-in-out;
   padding: 50px;
+  @media (max-width: $widht-medium) {
+    font-size: 14px;
+  }
   @media (max-width: $widht-large) {
     padding: 30px;
   }
@@ -12,4 +21,22 @@
   @media (max-width: $widht-small) {
     padding: 10px;
   }
+
+  &.dark{
+    background-color: darken($body-bg-dark, 30%);
+    color: $body-text-dark;
+  }
 }
+
+
+// :root[theme='dark'] {
+//   margin: 0 auto;
+//   user-select: none;
+//   font-family: 'Rubik', sans-serif;
+//   background-color: darken($body-bg-dark, 30%);
+//   color: $body-text-dark;
+//   transition: all 0.5s ease-in-out;
+//   @media (max-width: $widht-medium) {
+//     font-size: 14px;
+//   }
+// }

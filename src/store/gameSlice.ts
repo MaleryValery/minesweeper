@@ -35,9 +35,8 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setTheme, setGameState, setWinner,setAudio } = gameSlice.actions;
+export const { setTheme, setGameState, setWinner, setAudio } = gameSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
 export const selectGameStatus = (state: RootState) => state.game;
 
 export default gameSlice.reducer;

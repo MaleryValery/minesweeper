@@ -5,7 +5,7 @@ import { BOMBS_QTY, SIZE_FIELD } from '../../utils/const';
 import GameSettings from '../GameSettings/GameSettings';
 import './App.scss';
 import { generateCells } from '../../utils/generateCells';
-import { CellType, GameStatus } from '../../utils/types';
+import { CellType, GameStatus, GameTheme } from '../../utils/types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setGameState } from '../../store/gameSlice';
 import ModalPopup from '../ModalPopup/EndGameModal';
@@ -23,7 +23,7 @@ function App() {
   const [isLive, setIsLive] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [isWin, setIsWin] = useState(false);
-  const { gameStatus, audio } = useAppSelector((state) => state.game);
+  const { gameStatus, audio, theme } = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
 
   const handlerMouseDown = () => {
@@ -79,7 +79,7 @@ function App() {
   }, [isLive, timer]);
 
   return (
-    <div className="wrapper">
+    <div className={`wrapper ${theme === GameTheme.dark? 'dark': ''}`}>
       {gameStatus !== GameStatus.live && <ModalPopup />}
       <Header />
       <GameSettings

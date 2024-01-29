@@ -76,8 +76,8 @@ function GameField({
 
   const playAudio = (name: string) => {
     if (!audio) return;
-    new Audio(name).play()
-  }
+    new Audio(name).play();
+  };
 
   const renderCells = () => {
     return cells.map((row, rowIndex) =>
@@ -101,7 +101,7 @@ function GameField({
   const handlerContextClick = (row: number, col: number) => (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     if (isOver || isWin) return;
-    playAudio(flag)
+    playAudio(flag);
     const curCells = [...cells];
 
     const curCell = cells[row][col];
@@ -119,7 +119,7 @@ function GameField({
   };
 
   const handlerCellClick = (row: number, col: number) => () => {
-    playAudio(click)
+    playAudio(click);
     if (isOver || isWin) return;
     const curCell = cells[row][col];
     if (curCell.value === CellValue.bomb && moves < 1) {
@@ -133,7 +133,7 @@ function GameField({
     if (curCell.state === CellState.flagged || curCell.state === CellState.visible) return;
 
     if (curCell.value === CellValue.bomb) {
-      playAudio(loseGame)
+      playAudio(loseGame);
       dispatch(setGameState(GameStatus.lose));
       newCells[row][col].state = CellState.visible;
       newCells[row][col].bombed = true;
@@ -150,7 +150,7 @@ function GameField({
     }
     const isWiner = checkIsWin(bombs, size, newCells);
     if (isWiner) {
-      playAudio(winGame)
+      playAudio(winGame);
       const updatedCels = setFlagsOnBombs(newCells);
       dispatch(setGameState(GameStatus.win));
       dispatch(setWinner({ timer, size, bombs, moves, name: '' }));

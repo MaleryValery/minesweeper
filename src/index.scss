@@ -6,34 +6,34 @@
   box-sizing: border-box;
 }
 
-button{
+button {
   border: none;
   background-color: transparent;
 }
 
-:root {
-  margin: 0 auto;
-  user-select: none;
-  font-family: 'Rubik', sans-serif;
-  background-color: lighten($body-bg-light, 10%);
-  color: darken($body-text-light, 20%);
-  transition: all 0.5s ease-in-out;
-  @media (max-width: $widht-medium) {
-    font-size: 14px;
-  }
-}
+// :root {
+//   margin: 0 auto;
+//   user-select: none;
+//   font-family: 'Rubik', sans-serif;
+//   background-color: lighten($body-bg-light, 10%);
+//   color: darken($body-text-light, 20%);
+//   transition: all 0.5s ease-in-out;
+//   @media (max-width: $widht-medium) {
+//     font-size: 14px;
+//   }
+// }
 
-:root[theme='dark'] {
-  margin: 0 auto;
-  user-select: none;
-  font-family: 'Rubik', sans-serif;
-  background-color: darken($body-bg-dark, 30%);
-  color: $body-text-dark;
-  transition: all 0.5s ease-in-out;
-  @media (max-width: $widht-medium) {
-    font-size: 14px;
-  }
-}
+// :root[theme='dark'] {
+//   margin: 0 auto;
+//   user-select: none;
+//   font-family: 'Rubik', sans-serif;
+//   background-color: darken($body-bg-dark, 30%);
+//   color: $body-text-dark;
+//   transition: all 0.5s ease-in-out;
+//   @media (max-width: $widht-medium) {
+//     font-size: 14px;
+//   }
+// }
 
 .theme {
   cursor: pointer;

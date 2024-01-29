@@ -1,9 +1,10 @@
 // import { MouseEventHandler, useState } from "react";
-import { CellState, CellValue } from '../../utils/types';
+import { CellState, CellValue, GameTheme } from '../../utils/types';
 import { MouseEvent } from 'react';
 import bomb from '../../assets/bomb.png';
 import flag from '../../assets/red-flag.png';
 import './Cell.scss';
+import { useAppSelector } from '../../store/hooks';
 
 type CellProps = {
   row: number;
@@ -18,6 +19,9 @@ type CellProps = {
 };
 
 function Cell({ bombed, onCellClick, row, col, state, value, onContextClick }: CellProps) {
+
+  const { theme } = useAppSelector((state) => state.game);
+
   const renderCellContent = () => {
     if (state === CellState.visible) {
       if (value === CellValue.bomb) {
@@ -37,7 +41,8 @@ function Cell({ bombed, onCellClick, row, col, state, value, onContextClick }: C
       onContextMenu={onContextClick(row, col)}
       className={`cell 
       ${state === CellState.visible ? `open value-${value}` : ``}
-      ${bombed === true ? `open boom` : ``}`}
+      ${bombed === true ? `open boom` : ``}
+     ${theme === GameTheme.dark? 'dark': ''}`}
     >
       {renderCellContent()}
     </div>
