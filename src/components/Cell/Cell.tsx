@@ -1,6 +1,4 @@
-// import { MouseEventHandler, useState } from "react";
 import { CellState, CellValue, GameTheme } from '../../utils/types';
-import { MouseEvent } from 'react';
 import bomb from '../../assets/bomb.png';
 import flag from '../../assets/red-flag.png';
 import './Cell.scss';
@@ -15,11 +13,10 @@ type CellProps = {
   bombed: boolean;
   onChangeMoves: () => void;
   onCellClick(row: number, col: number): () => void;
-  onContextClick(row: number, col: number): (event: MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onContextClick(row: number, col: number): (event: React.MouseEvent) => void;
 };
 
 function Cell({ bombed, onCellClick, row, col, state, value, onContextClick }: CellProps) {
-
   const { theme } = useAppSelector((state) => state.game);
 
   const renderCellContent = () => {
@@ -42,7 +39,7 @@ function Cell({ bombed, onCellClick, row, col, state, value, onContextClick }: C
       className={`cell 
       ${state === CellState.visible ? `open value-${value}` : ``}
       ${bombed === true ? `open boom` : ``}
-     ${theme === GameTheme.dark? 'dark': ''}`}
+     ${theme === GameTheme.dark ? 'dark' : ''}`}
     >
       {renderCellContent()}
     </div>

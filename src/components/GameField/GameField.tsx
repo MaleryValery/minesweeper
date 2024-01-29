@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import Cell from '../Cell/Cell';
 import { SIZE_FIELD } from '../../utils/const';
 import './GameField.scss';
@@ -98,7 +98,7 @@ function GameField({
     );
   };
 
-  const handlerContextClick = (row: number, col: number) => (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handlerContextClick = (row: number, col: number) => (e: React.MouseEvent) => {
     e.preventDefault();
     if (isOver || isWin) return;
     playAudio(flag);
