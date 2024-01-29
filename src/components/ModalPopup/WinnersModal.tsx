@@ -4,15 +4,18 @@ import { WinnerType } from '../../utils/types';
 import { Dispatch, SetStateAction } from 'react';
 
 type WinnersModalProps = {
-  onClose: Dispatch<SetStateAction<boolean>>
-}
+  onClose: Dispatch<SetStateAction<boolean>>;
+};
 
-function WinnersModal({ onClose }:WinnersModalProps) {
-  const winners: WinnerType[] | '' = JSON.parse(localStorage.getItem('allwinners') ?? '');
-
+function WinnersModal({ onClose }: WinnersModalProps) {
+ 
   const renderWinners = () => {
+    const winnersFromLS = localStorage.getItem('allwinners');
+  
+    if (!winnersFromLS) {return <p>No winners yet</p>}
+  
+    const winners: WinnerType[] = JSON.parse(winnersFromLS)
     const titles = Object.keys(winners[0]);
-    if (winners === '') return;
     winners.sort((a, b) => a.timer - b.timer);
     return (
       <table>
@@ -46,14 +49,14 @@ function WinnersModal({ onClose }:WinnersModalProps) {
     );
   };
 
-  return <CustomModal>
-    <button className="close-modal-btn" onClick={()=> onClose(false)}>
-          ➕
-        </button>
-    {
-    winners === ''
-      ?<p>No winners, you can be the first one</p>
-      : renderWinners()}</CustomModal>;
+  return (
+    <CustomModal>
+      <button className="close-modal-btn" onClick={() => onClose(false)}>
+        ➕
+      </button>
+      {renderWinners()}
+    </CustomModal>
+  );
 }
 
 export default WinnersModal;
