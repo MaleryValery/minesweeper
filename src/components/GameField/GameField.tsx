@@ -121,19 +121,19 @@ function GameField({
 
   const handlerCellClick = (row: number, col: number) => () => {
     if (isOver || isWin) return;
-    
+
     let newCells = [...cells];
     playAudio(click);
-    if(!isLive){
-      let isFirstBomb = newCells[row][col].value === CellValue.bomb
-      while(isFirstBomb){
+    if (!isLive) {
+      let isFirstBomb = newCells[row][col].value === CellValue.bomb;
+      while (isFirstBomb) {
         newCells = generateCells(size, bombs);
         if (newCells[row][col].value !== CellValue.bomb) {
           isFirstBomb = false;
           break;
         }
-      }  
-      setIsLive(() => true)
+      }
+      setIsLive(() => true);
       onChangeMoves();
     }
     onChangeMoves();
