@@ -2,7 +2,7 @@
 
 .wrapper {
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   user-select: none;
   font-family: 'Rubik', sans-serif;
   background-color: lighten($body-bg-light, 10%);
@@ -28,15 +28,3 @@
   }
 }
 
-
-// :root[theme='dark'] {
-//   margin: 0 auto;
-//   user-select: none;
-//   font-family: 'Rubik', sans-serif;
-//   background-color: darken($body-bg-dark, 30%);
-//   color: $body-text-dark;
-//   transition: all 0.5s ease-in-out;
-//   @media (max-width: $widht-medium) {
-//     font-size: 14px;
-//   }
-// }
