@@ -7,6 +7,8 @@ import bomb from '../../assets/hard2.png';
 import { BOMBS_QTY, SIZE_FIELD } from '../../utils/const';
 import { ChangeEvent, useState } from 'react';
 import './GameSettings.scss';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setAudio } from '../../store/gameSlice';
 
 type GameSettings = {
   onChangeFieldSize: (num: number) => void;
@@ -20,9 +22,20 @@ type GameSettings = {
   moves: number;
 };
 
-function GameSettings({ moves, timer, flag, isLeftClick,isOver,isWin, onReset, onChangeFieldSize, onChangeBombs }: GameSettings) {
-  const [isSound, setIsSound] = useState(false);
+function GameSettings({
+  moves,
+  timer,
+  flag,
+  isLeftClick,
+  isOver,
+  isWin,
+  onReset,
+  onChangeFieldSize,
+  onChangeBombs,
+}: GameSettings) {
   const [value, setInputValue] = useState(BOMBS_QTY.min);
+  const dispatch = useAppDispatch();
+  const { audio } = useAppSelector((state) => state.game);
 
   const handlerChangeBombs = (num: number) => {
     const bombValue = num < BOMBS_QTY.min ? BOMBS_QTY.min : num;
@@ -33,6 +46,10 @@ function GameSettings({ moves, timer, flag, isLeftClick,isOver,isWin, onReset, o
   const handlerChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value) > BOMBS_QTY.max ? BOMBS_QTY.max : Number(e.target.value);
     setInputValue(value);
+  };
+
+  const handlerChangeAudio = () => {
+    dispatch(setAudio(!audio));
   };
 
   return (
@@ -70,11 +87,14 @@ function GameSettings({ moves, timer, flag, isLeftClick,isOver,isWin, onReset, o
         />
       </div>
       <div className="wrapper-current-game">
-        <div className="sound setiing" onClick={() => setIsSound(!isSound)}>
-          {isSound ? 'ON' : 'OFF'}
+        <div className="sound setiing" onClick={handlerChangeAudio}>
+          {audio ? 'ON' : 'OFF'}
         </div>
         <div className="timer setiing">{timer}</div>
-        <div className={`game-icon ${isLeftClick ? 'mousedown' : ''} ${isOver ? 'lose' : ''}${isWin ? 'win' : ''}`} onClick={onReset} />
+        <div
+          className={`game-icon ${isLeftClick ? 'mousedown' : ''} ${isOver ? 'lose' : ''}${isWin ? 'win' : ''}`}
+          onClick={onReset}
+        />
         <div className="flags setiing">{flag}</div>
         <div className="moves setiing">{moves}</div>
       </div>

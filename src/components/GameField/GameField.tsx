@@ -8,8 +8,13 @@ import { showAllCells } from '../../utils/showAllCells';
 import { generateCells } from '../../utils/generateCells';
 import { checkIsWin } from '../../utils/checkIsWin';
 import { setFlagsOnBombs } from '../../utils/setFlagsOnBombs';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setGameState, setWinner } from '../../store/gameSlice';
+
+import click from '../../assets/sounds/click-soundCrop.mp3';
+import flag from '../../assets/sounds/flag-soundCrop.mp3';
+import loseGame from '../../assets/sounds/lose-sound.mp3';
+import winGame from '../../assets/sounds/win-sound2.mp3';
 
 type GameFieldProps = {
   isLive: boolean;
@@ -51,6 +56,7 @@ function GameField({
 }: GameFieldProps) {
   const fieldRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+  const { audio } = useAppSelector((state) => state.game);
 
   useEffect(() => {
     const field = fieldRef.current;
@@ -67,6 +73,11 @@ function GameField({
       };
     }
   }, []);
+
+  const playAudio = (name: string) => {
+    if (!audio) return;
+    new Audio(name).play()
+  }
 
   const renderCells = () => {
     return cells.map((row, rowIndex) =>
@@ -90,7 +101,7 @@ function GameField({
   const handlerContextClick = (row: number, col: number) => (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     if (isOver || isWin) return;
-
+    playAudio(flag)
     const curCells = [...cells];
 
     const curCell = cells[row][col];
@@ -108,6 +119,7 @@ function GameField({
   };
 
   const handlerCellClick = (row: number, col: number) => () => {
+    playAudio(click)
     if (isOver || isWin) return;
     const curCell = cells[row][col];
     if (curCell.value === CellValue.bomb && moves < 1) {
@@ -121,6 +133,7 @@ function GameField({
     if (curCell.state === CellState.flagged || curCell.state === CellState.visible) return;
 
     if (curCell.value === CellValue.bomb) {
+      playAudio(loseGame)
       dispatch(setGameState(GameStatus.lose));
       newCells[row][col].state = CellState.visible;
       newCells[row][col].bombed = true;
@@ -137,6 +150,7 @@ function GameField({
     }
     const isWiner = checkIsWin(bombs, size, newCells);
     if (isWiner) {
+      playAudio(winGame)
       const updatedCels = setFlagsOnBombs(newCells);
       dispatch(setGameState(GameStatus.win));
       dispatch(setWinner({ timer, size, bombs, moves, name: '' }));

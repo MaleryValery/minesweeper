@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setGameState } from '../../store/gameSlice';
 import ModalPopup from '../ModalPopup/EndGameModal';
 
+import restart from '../../assets/sounds/restart-soundCrop.mp3';
+
 function App() {
   const [size, setSize] = useState(SIZE_FIELD.small);
   const [bombs, setBombs] = useState(BOMBS_QTY.min);
@@ -21,7 +23,7 @@ function App() {
   const [isLive, setIsLive] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [isWin, setIsWin] = useState(false);
-  const { gameStatus } = useAppSelector((state) => state.game);
+  const { gameStatus, audio } = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
 
   const handlerMouseDown = () => {
@@ -57,6 +59,12 @@ function App() {
   const handleReset = () => {
     baseReset();
     setCells(generateCells(size, bombs));
+    playAudio(restart)
+  };
+
+  const playAudio = (name: string) => {
+    if (!audio) return;
+    new Audio(name).play();
   };
 
   useEffect(() => {
