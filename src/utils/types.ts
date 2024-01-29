@@ -34,9 +34,9 @@ export enum GameTheme {
 }
 
 export type WinnerType = { 
-  timer: number,
-  size: number,
-  bombs: number,
-  moves: number,
   name: string,
+  timer: number,
+  moves: number,
+  bombs: number,
+  size: number,
 }

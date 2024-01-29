@@ -45,6 +45,7 @@ function GameField({
   bombs,
   isOver,
   isWin,
+  isLive,
   setIsOver,
   setIsWin,
   onLeftMouseDown,
@@ -119,17 +120,25 @@ function GameField({
   };
 
   const handlerCellClick = (row: number, col: number) => () => {
-    playAudio(click);
     if (isOver || isWin) return;
-    const curCell = cells[row][col];
-    if (curCell.value === CellValue.bomb && moves < 1) {
-      setCells(() => generateCells(size, bombs));
-    } else {
-      moves < 1 ? setIsLive(() => true) : null;
+    
+    let newCells = [...cells];
+    playAudio(click);
+    if(!isLive){
+      let isFirstBomb = newCells[row][col].value === CellValue.bomb
+      while(isFirstBomb){
+        newCells = generateCells(size, bombs);
+        if (newCells[row][col].value !== CellValue.bomb) {
+          isFirstBomb = false;
+          break;
+        }
+      }  
+      setIsLive(() => true)
       onChangeMoves();
     }
+    onChangeMoves();
+    const curCell = newCells[row][col];
 
-    let newCells = [...cells];
     if (curCell.state === CellState.flagged || curCell.state === CellState.visible) return;
 
     if (curCell.value === CellValue.bomb) {

@@ -26,7 +26,7 @@ function ModalPopup() {
     const prevWinners = localStorage.getItem('allwinners');
     if (prevWinners) {
       const updateWinners: WinnerType[] = JSON.parse(prevWinners);
-      const cutedWinnersArr = updateWinners.length > 9 ? updateWinners.slice(0, 9) : updateWinners;
+      const cutedWinnersArr = updateWinners.length > 9 ? updateWinners.reverse().slice(0, 9).reverse() : updateWinners;
       localStorage.setItem('allwinners', JSON.stringify([...cutedWinnersArr, winerWithName]));
     } else {
       localStorage.setItem('allwinners', JSON.stringify([winerWithName]));

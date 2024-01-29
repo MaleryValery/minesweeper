@@ -16,7 +16,7 @@ function WinnersModal({ onClose }: WinnersModalProps) {
     }
 
     const winners: WinnerType[] = JSON.parse(winnersFromLS);
-    const titles = Object.keys(winners[0]);
+    const titles = Object.keys(winners[0]).reverse();
     winners.sort((a, b) => a.timer - b.timer);
     return (
       <table>
